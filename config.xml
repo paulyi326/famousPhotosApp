@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="phot.os" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>phot.os</name>
+    <description>
+        An app to change the way you share photos.
+    </description>
+    <author email="kiafathi@me.com" href="http://kiafathi.com">
+        Kia Fathi and Paul Yi
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>
