@@ -25,20 +25,16 @@ define(function(require, exports, module) {
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
-        console.log('========================device is readdddddddddddddyyyyyyyyyy');
         navigator.camera.getPicture(onSuccess, onFail, {
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
             destinationType: Camera.DestinationType.FILE_URI
         });
-        console.log('===================================  Something');
     }
 
     var surfaces = [];
     //img = 'blank';
 
     function onSuccess(imageURI) {
-        console.log('==============================making a img surface');
-        console.log('================================url is' + imageURI);
         var i = 0;
         console.log(imageURI);
         while (i < 20) {
@@ -53,10 +49,13 @@ define(function(require, exports, module) {
                 }
             });
 
+            imageSurface.on('click', function(){
+                console.log('click detected!');
+            });
+
             surfaces.push(imageSurface);
             i = i + 1;
         }
-        img = imageURI;
     }
 
     function onFail(message) {
@@ -64,7 +63,6 @@ define(function(require, exports, module) {
     }
 
     var scrollview = new Scrollview({
-        margin: 180
     });
 
     Engine.pipe(scrollview);
@@ -75,7 +73,7 @@ define(function(require, exports, module) {
     });
     scrollview.sequenceFrom(viewSequence);
 
-    var size = [300, 100];
+    var size = [180, 240];
 
     var centerModifier = new StateModifier({
         size: size,
@@ -85,52 +83,9 @@ define(function(require, exports, module) {
 
     mainContext.add(centerModifier).add(scrollview);
 
-    // for (var i = 0; i < 20; i++) {
-    //     var surface = new ImageSurface({
-    //         size: size,
-    //         content: img,
-    //         properties: {
-    //             textAlign: 'center',
-    //             lineHeight: '100px',
-    //             color: 'white',
-    //             backgroundColor: "hsl(" + (i * 360 / 40) + ", 100%, 50%)",
-    //             boxShadow: '0 0 15px rgba(0, 0, 0, 0.5)'
-    //         }
-    //     });
-
-    //     surfaces.push(surface);
-    // }
-
     scrollview.outputFrom(function(offset) {
         return Transform.moveThen([0, -50, 350], Transform.rotateX(-0.004 * offset));
     });
 
-    // var logo = new ImageSurface({
-    //     size: [100, 100],
-    //     content: 'http://code.famo.us/assets/famous_logo.svg',
-    //     classes: ['double-sided']
-    // });
-
-    var text = new Surface({
-        size: [300, 200],
-        content: 'famous + cordova + pictures<br/><h1>UNDER CONSTRUCTION</h1>'
-    });
-
-    // var initialTime = Date.now();
-    // var centerSpinModifier = new Modifier({
-    //     origin: [0.5, 0.5],
-    //     align: [0.85, 0.1],
-    //     transform: function() {
-    //         return Transform.rotateY(.002 * (Date.now() - initialTime));
-    //     }
-    // });
-
-    var textModifier = new Modifier({
-        origin: [0.5, 0.5],
-        align: [0.5, 0.5]
-    });
-
-    mainContext.add(textModifier).add(text);
-    // mainContext.add(centerSpinModifier).add(logo);
 });
 
